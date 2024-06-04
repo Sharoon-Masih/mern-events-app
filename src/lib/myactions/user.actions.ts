@@ -1,9 +1,9 @@
 "use server"
 
 import { connectToDb } from "../database";
-import EventModel from "../database/models/event.model";
-import UserModel from "../database/models/user.model";
-import OrderModel from "../database/mymodels/order.model";
+import EventModel from "@/lib/database/models/event.model";
+import UserModel from "@/lib/database/models/user.model";
+import OrderModel from "../database/models/order.model";
 import { CreateUserParams, UpdateUserParams } from "../types";
 import { handleError } from "../utils";
 
