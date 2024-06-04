@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <section className="bg-primary-50 bg-dotted-pattern py-5 md:py-10">
+      <section className="bg-primary-50 bg-dotted-pattern py-5 md:py-10 bg-center bg-cover">
         <div className="wrapper grid grid-cols-1 md:grid-cols-2 gap-5 2xl:gap-0"> {/*grid isi liya yaha use ki hai kiu kay srff two element hain hero section may and we have to divide them equally iss lia grid krdia bcuz grid by default equal divide krti hai A/c to jitnay column hotay hain unka A/c set krti hai. */}
           <div className="flex flex-col justify-center items-start sm:items-center md:items-start gap-8 justify-items-center sm:text-center md:text-start">
             <h1 className="h1-bold">Host, Connect Celebrate: Your Events, Our platform!</h1>
