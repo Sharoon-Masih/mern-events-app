@@ -15,7 +15,7 @@ export const connectToDb = async () => {
     if (!MONGO_URI) throw new Error('MONGO_URI is missing') //if MONGO_URI is undefined it will immdiately throw an error which it will pause the further execution.
 
     cached.promise = cached.promise || mongoose.connect(MONGO_URI, { //here we set that in the cached.promise property if promise exist set it to the same or otherwise create new connection, remember ".connect" will return a promise.
-        dbName: "Evently",  //DB name
+        dbName: "EventlyCluster",  //DB name
         bufferCommands: false  //now mongoose will not do buffering, which means now mongoose will not wait, it will execute operation immediatly. 
     })
 
