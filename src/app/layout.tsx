@@ -6,7 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 const poppin = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800", "900"], variable: "--font-poppins" }); //Css variables basic iss tarah sa hota hai kay like ab yeh font impoprt krka use kr rhay hain toh isko humna ek variable name assign krdia now we can use this variable anywhere that represents that is the poppins font like e.g: font-family:var(--font-poppins).
 
 export const metadata: Metadata = {
-  title: "EventBox",
+  title: "Evently",
   description: "EventBox is a platform for managing events",
   icons: { //this is actual way to add favicon or app icon, but dont know why its not working.below you will find an alternate in head tag.
     icon: "/assets/images/logo.svg"
