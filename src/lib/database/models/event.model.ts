@@ -1,6 +1,6 @@
 import { Schema, model, models, Document } from "mongoose";
 
-interface Ievents extends Document {//basically yeh jo Ievents interface bnaya yeh jaka toh mongoDb ka hi model hoga for creating document so iss liya we have 'extends' it with document taka jo Ievents interface ma jo Document ki property hain wobi rahay or jo new properties Ievents ma bnaye wo be hon isilia Document ko import be ki hai.basically yeh humna schema ki ek type define krdi which will help jab hum frontend pa isko use kreingay bcuz yeh humay btadega kay kon kon si fields humna apna schema ma bnai hai kiu kay zahir hai jo fields schema ma hain wohi isme be as a property define ki hain.
+export interface Ievents extends Document {//basically yeh jo Ievents interface bnaya yeh jaka toh mongoDb ka hi model hoga for creating document so iss liya we have 'extends' it with document taka jo Ievents interface ma jo Document ki property hain wobi rahay or jo new properties Ievents ma bnaye wo be hon isilia Document ko import be ki hai.basically yeh humna schema ki ek type define krdi which will help jab hum frontend pa isko use kreingay bcuz yeh humay btadega kay kon kon si fields humna apna schema ma bnai hai kiu kay zahir hai jo fields schema ma hain wohi isme be as a property define ki hain.
     _id:string; //yeh wali field schema ma toh nhi dali bcuz waha par zarorat nhi kiu kay mongoDb automatic ek Id bnadeta hai document ki but uss "_id" ki field ko frontend pa get krnay kay liya yaha define krdi hai.
     title: string;
     description?: string; // Optional field
@@ -44,7 +44,7 @@ const EventSchema = new Schema({
 // organizer: This is the name of the field.
 // { type: Schema.Types.ObjectId, ref: 'User' }:
 // type: Specifies the data type of the field. In this case, it’s an ObjectId.
-// Schema.Types.ObjectId: An ObjectId is a unique identifier automatically assigned to each document in a MongoDB collection, yeh wo Id hai joay jab hum koi be document bnatay hain mongoDB collection may toh automatically assign hjati hai.
+// Schema.Types.ObjectId: An ObjectId is a unique identifier automatically assigned to each document in a MongoDB collection, yeh wo Id hai jo jab hum koi be document bnatay hain mongoDB collection may toh automatically assign hjati hai.
 // ref: 'User': This part establishes a reference to another collection named 'User'. It means that the organizer field will store an ObjectId that corresponds to a document in the 'User' collection.
 
 // Practical Example:

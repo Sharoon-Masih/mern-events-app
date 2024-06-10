@@ -98,6 +98,15 @@ export type Event = {
   }
 }
 
+export type Category = {
+  _id: string
+  name: string
+}
+export type Organizer = {
+  _id: string
+  firstName: string
+  lastName: string
+}
 // ====== CATEGORY PARAMS
 export type CreateCategoryParams = {
   categoryName: string

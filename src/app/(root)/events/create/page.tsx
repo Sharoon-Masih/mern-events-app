@@ -8,7 +8,11 @@ const CreateEvents = () => {
     //we have to two helper given by clerk to access clerk data on nextJS app within server components one is "auth()" and other is "currentUser()", Now the Auth will return you the Auth object like userId,sessionId etc.
     
     //But currentUser() will return you the user data like firstName, lastName, etc. you will use this func when you want to show user Info on UI.
-    const userId = sessionClaims?.userId as string
+    const userId = sessionClaims?.userId as string //must remember that basically this sessionClaim token is the metaData which i am getting from auth() obj, but to get this metadata we should first expose it so that we can get it.
+
+    //how to expose it go and check this docs: https://clerk.com/docs/backend-requests/making/custom-session-token?_gl=1*1a81283*_ga*MTg2OTA3NjI1OC4xNzE0OTc4ODMx*_ga_1WMF5X234K*MTcxNzY2OTc3Ni4xOC4xLjE3MTc2Njk3OTUuMC4wLjA.*_gcl_au*MTQ2MzcxNTAzMS4xNzE0OTc4ODMxLjE1NjEyNDE4LjE3MTU5NDM4ODAuMTcxNTk0MzkxNA..
+
+    //basically yeh session token jo hotay hain yeh yeh currently authenticated user hota hai yeh uska data iss session token ma hota hai. 
 
     return (
         <>

@@ -1,28 +1,26 @@
 import EventForm from '@/components/shared/eventForm'
+import { getEventById } from '@/lib/actions/event.action'
 import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 
-const CreateEvents = () => {
-    const { sessionClaims } = auth() //it is helper to get currently actiev user Auth object, it only works on server-side rendered component.//to understand session claim see below after the code
-
-    //we have to two helper given by clerk to access clerk data on nextJS app within server components one is "auth()" and other is "currentUser()", Now the Auth will return you the Auth object like userId,sessionId etc.
-
-    //But currentUser() will return you the user data like firstName, lastName, etc. you will use this func when you want to show user Info on UI.
+const UpdateEvents = async ({ params }: { params: { id: string } }) => {
+    const { sessionClaims } = auth()
     const userId = sessionClaims?.userId as string
+    const event = await getEventById(params.id)
     return (
         <>
             <section className="bg-primary-50 bg-dotted-pattern py-5 md:py-10 bg-center bg-cover">
-            <h3 className='wrapper text-center sm:text-left h3-bold'>Create Event</h3>
+                <h3 className='wrapper text-center sm:text-left h3-bold'>Update Event</h3>
 
             </section>
             <div className='wrapper my-8'>
-                <EventForm userId={userId} type={"update"} />
+                <EventForm userId={userId} type={"update"} event={event} eventId={params.id}/>
             </div>
         </>
     )
 }
 
-export default CreateEvents;
+export default UpdateEvents;
 
 // Certainly! Let’s dive into the concept of session claims in the context of Clerk, a user authentication and permissions management platform.
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "EventBox",
   description: "EventBox is a platform for managing events",
   icons: { //this is actual way to add favicon or app icon, but dont know why its not working.below you will find an alternate in head tag.
-    icon: "\assets\images\logo.svg"
+    icon: "/assets/images/logo.svg"
   }
 };
 
@@ -21,9 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider >
       <html lang="en">
-        <head>
-          <link rel="icon" href="\assets\images\logo.svg" sizes="any" ></link> {/*this is way to add favicon while working with plain HTML/CSS but right now here its working so thats why i use it. */}
-        </head>
+        <head><link rel="icon" href="\assets\images\logo.svg" sizes="any" ></link></head>{/*this is way to add favicon while working with plain HTML/CSS but right now here its working so thats why i use it.*/}
         <body className={poppin.variable}>{children}</body>
       </html>
     </ClerkProvider>
