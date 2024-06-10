@@ -73,7 +73,7 @@ export async function getEventById(_id: string) {
 }
 
 async function populateEvents(query: any) { //yeh basic func iss lia bnaya haka jo kam hum uper wala func "getEventById" may manually kr rhay thy na to populate event fields with other document wohi kam krnay kay humna ek func bnadia or usme ek parameter dia joka wo query accept krega like this one query: "EventModel.findById(_id)and phr automatically." 
-  return await query
+  return query
     .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
     .populate({ path: "category", model: "Category", select: "_id name" })
 }
@@ -91,8 +91,10 @@ export async function getAllEvents({ query, limit = 6, page, category }: GetAllE
       .skip(0)
       .limit(limit)
 
-    const events = await populateEvents(eventsQuery)
-
+    const events = await eventsQuery
+    .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
+    .populate({ path: "category", model: "Category", select: "_id name" })
+      
     const eventsCount = await EventModel.countDocuments(condition)
 
     return {
@@ -102,7 +104,7 @@ export async function getAllEvents({ query, limit = 6, page, category }: GetAllE
     }
   }
   catch (error) {
-    handleError(error)
+   console.log(error);
   }
 
 }
