@@ -67,7 +67,7 @@ const SingleEvent = async ({ params, searchParams }: { params: { id: string }, s
                             </div>
                         </div>
                         <div className='flex flex-col gap-3'>
-                            <p className='text-grey-500 p-bold-24'>What You'll Learn:</p>
+                            <p className='text-grey-500 p-bold-24'>What You&apos;ll Learn:</p>
                             <p className='p-regular-16'>{getEvent.description}</p>
                             <p className='text-primary-500 underline line-clamp-1'><Link href={getEvent.url}>{getEvent.url}</Link></p>
                         </div>
