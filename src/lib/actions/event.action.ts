@@ -72,7 +72,7 @@ export async function getEventById(_id: string) {
 
 }
 
-async function populateEvents(query: any) { //yeh basic func iss lia bnaya haka jo kam hum uper wala func "getEventById" may manually kr rhay thy na to populate event fields with other document wohi kam krnay kay humna ek func bnadia or usme ek parameter dia joka wo query accept krega like this one query: "EventModel.findById(_id)and phr automatically." 
+function populateEvents(query: any) { //yeh basic func iss lia bnaya haka jo kam hum uper wala func "getEventById" may manually kr rhay thy na to populate event fields with other document wohi kam krnay kay humna ek func bnadia or usme ek parameter dia joka wo query accept krega like this one query: "EventModel.findById(_id)and phr automatically." 
   return query
     .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
     .populate({ path: "category", model: "Category", select: "_id name" })
@@ -93,7 +93,7 @@ export async function getAllEvents({ query, limit = 6, page, category }: GetAllE
 
     const events = await eventsQuery
     .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
-    .populate({ path: "category", model: "Category", select: "_id name" })
+    // .populate({ path: "category", model: "Category", select: "_id name" })
       
     const eventsCount = await EventModel.countDocuments(condition)
 
@@ -189,8 +189,7 @@ export async function getEventsOrganizedByUserId({ userId, page, limit = 6 }: Ge
       data: JSON.parse(JSON.stringify(organizedEvents)),
       totalPages: Math.ceil(organizedEventsCount)
     }
-    return
   } catch (error) {
-    handleError(error)
+    console.log(error)
   }
 }

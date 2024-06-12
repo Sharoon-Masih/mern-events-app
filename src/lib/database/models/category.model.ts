@@ -10,4 +10,4 @@ const CategorySchema = new Schema({
 
 const CategoryModel = models.Category || model("Category", CategorySchema)
 
-export default CategoryModel
+export default CategoryModel;
