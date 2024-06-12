@@ -239,7 +239,7 @@ Remember, while MongoDB's flexible schema allows variations between documents, M
 
 #### Webhook with clerk :
 
-basically here we are syncing Clerk data to application backend, Which means that at the moment when anyone come and signup or sign-in etc on our app so User data will automatically Save in DB as well.
+basically here we are syncing Clerk data to application backend, Which means that at the moment when anyone come and signup or sign-in etc on our app so User data will automatically Save in DB as well.[click here](https://clerk.com/docs/integrations/webhooks/sync-data)
 
 * Step-01 : If you want to test it locally so then first we have to deploy using Ngrok server which will create a URL that looks like domain, but basically your app is running locally n your system, but best option is to dont do this step directly go on vercel and deploy your websute properly (this you can do after setuping webhook)
 * step-02: move to step-5 in the top above link steps, where we are going to install Svix package.
