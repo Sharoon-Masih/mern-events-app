@@ -91,6 +91,7 @@ In summary, Mongoose simplifies MongoDB data modeling, validation, and interacti
 * In simple words, Mongoose allows us to make some validation on our mongoDB as we know that in MongoDb we cannot create standard schema there is a dynamic collections of documents where fields can be created dynamically in documents, So mongoose serve as a driver that allow us to create schema,middlewares,relationships b/w different collections(similar to SQL).
 
 * by doing methods chaining we can build complex queries.
+* But remember one thing that even if we created a schema by using mongoose, but still mongoDb will accept other fields as well those are not in schema and to solve this problem you can check this:[check here](https://stackoverflow.com/questions/28063849/mongoose-select-only-fields-explicitly-declared-in-schema)
 
 **Mongoose**, a Node.js-based Object Data Modeling (ODM) library, is primarily designed for **MongoDB**. However, there are some considerations regarding its compatibility with other NoSQL databases:
 
