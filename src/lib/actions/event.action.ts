@@ -187,7 +187,7 @@ export async function getEventsOrganizedByUserId({ userId, page, limit = 6 }: Ge
       .limit(limit)
 
     await CategoryModel.find({})
-    const organizedEvents: Ievents[] = await eventQuery .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
+    const organizedEvents: Ievents[] = await eventQuery.populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
     .populate({ path: "category", model: "Category", select: "_id name" })
     const organizedEventsCount: number = await EventModel.countDocuments(condition)
 
