@@ -36,14 +36,14 @@ export default async function Home() {
             search
             category
           </div>
-          {/* <Collection
+          <Collection
             data={events?.data}
             emptyTitle="No Event found"
             emptyStateSubText="Right now there is no event come back later"
             collectionType={"All_Events"}
             limit={6}
             page={1}
-            totalPage={events?.totalPages} /> */}
+            totalPage={events?.totalPages} />
         </div>
 
       </section>

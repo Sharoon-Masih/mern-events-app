@@ -65,13 +65,14 @@ export async function deleteUser(clerkId: string) {
         // Unlink relationships
         await Promise.all([
             // Update the 'events' collection to remove references to the user
-            EventModel.updateMany(
-                { _id: { $in: userToDelete.events } },
+            EventModel.updateMany( //acha yeh iss tarah ho rhaa hai kiu kay as we know humna events ko link kia user ka sth , like jasa jo be user login hoga agr wo event create krega toh wo uss event ka organizer hoga but ab hume yebi krna haka agr jo koi asa event ho jo uss user na bnaya hai or user kisi waja sa delete kreinga toh we want that kay wo jin events mabi b tha waha sa remove hojaye.toh iss lia yaha hum jo Events ki collection hai usko puri ko iterate krwa rahay hain and in simple word we are saying that:
+                { _id: { $in: userToDelete.events } }, //yaha humna condition set ki hai like pehla event ki "_id" ayi usne check kia kay kya jo userToDelete hai usme jo events array dia hai toh agr _id or uss events array ma hogi toh condition true hoja gi or jo on the next line humna parameter dia hai wo basically update ka toh mtlb ky agr wakya hi wo id exist krti hai toh phr uss event masy say organizer ko pull krlo mtlb kay organizer ko nikal ko its mean in simple agr condition true hogi organizer remove hojaga else kuch be nhi hoga. 
                 { $pull: { organizer: userToDelete._id } }
             ),
 
             // Update the 'orders' collection to remove references to the user
-            OrderModel.updateMany({ _id: { $in: userToDelete.orders } }, { $unset: { buyer: 1 } }),
+            OrderModel.updateMany({ _id: { $in: userToDelete.orders } }, //yaha be same orders check kr rhay hain agr order exist krta hai toh condition true hojagi and then jo nichay update hai wo apply hoja gi.
+                { $unset: { buyer: 1 } }), //iska mtlb hai "buyer" fields nikal jayegi un sab documents say jaha condition true hogi.
         ])
 
 

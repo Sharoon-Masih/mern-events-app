@@ -22,7 +22,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => { //yeh serve
                         currency: "usd",
                         unit_amount: price,
                         product_data: {
-                            name: order.eventTitle
+                            name: order.eventTitle,
                         }
                     },
                     quantity: 1
@@ -38,7 +38,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => { //yeh serve
             //remember NEXT_PUBLIC_SERVER_URL yeh lazmi dena hai bcuz it is your application domain. 
         });
 
-        redirect(session.url as string) //yeh redirect iss lia kia hai bcuz iska mtlb haka jasa hi yeh server action call hoga frontend say toh pehla in above code session create hojayega or then phr jasa hi session create ho toh jo be uss session ka url hoga yeh user ko uss URL pa redirect kredega, or remember kay right now abhi hum stripe ki taraf sa jo hosted page milta hai uspa redirect hongay but agr hum chahay toh hum apna custom page b bna kay stripe ko direct apni app ma embed krsktay hain.
+        redirect(session.url as string) //yeh redirect iss lia kia hai bcuz iska mtlb haka jasa hi yeh server action call hoga frontend say toh pehla in above code, session create hojayega or then phr jasa hi session create ho toh jo be uss session ka url hoga yeh user ko uss URL pa redirect kredega, or remember kay right now abhi hum stripe ki taraf sa jo hosted page milta hai uspa redirect hongay but agr hum chahay toh hum apna custom page b bna kay stripe ko direct apni app ma embed krsktay hain.
 
     } catch (error) {
         throw (error)

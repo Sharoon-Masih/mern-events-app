@@ -53,6 +53,7 @@ export async function getEventById(_id: string) {
 
   try {
     await connectToDb();
+    
     const requiredEvent: Event | null = await EventModel.findById(_id) //here we have find eveet by _id,further after finding the event i do populate method chaining,Now basicallly this method is used to populate specific path(path means field defined in your EventModel) with another document. like if we want to populate organizer field with organizer document so we simply set path to "organizer" bcuz path is that field you want to populate,then tell the model name that from which model you want extract that doc and last is "select" which means that what fields you want from the document like in "User" model we have 3-4 fields but i want only two "_id" and "firstName" , so i set only _id and firstname in "select".
       .populate({ path: "organizer", model: "User", select: "_id firstName" })
       .populate({ path: "category", model: "Category", select: "_id name" });
@@ -93,7 +94,7 @@ export async function getAllEvents({ query, limit = 6, page, category }: GetAllE
 
     const events = await eventsQuery
     .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
-    // .populate({ path: "category", model: "Category", select: "_id name" })
+    .populate({ path: "category", model: "Category", select: "_id name" })
       
     const eventsCount = await EventModel.countDocuments(condition)
 
