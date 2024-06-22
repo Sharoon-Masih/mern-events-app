@@ -100,7 +100,7 @@ export async function getUser(userId: string) { //ab jo yeh wala action hna yeh 
         await connectToDb();
         const User = await UserModel.findById( userId ) //yaha par .findById or findOne ma yeh difference haka findOne jo be doc ma field detay hain uska A/c filter kta hai or jo findById hai wo jo doc ki "_id" hoti hai joka tab bnti hai jab doc create hota hai toh uska A/c filter krta hai.
 
-        if (!User) throw new Error("user not found")
+        if (!User) throw new Error("user not get")
           
         return JSON.parse(JSON.stringify(User))
 
