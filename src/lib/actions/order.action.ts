@@ -33,7 +33,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => { //yeh serve
                 buyerId: order.buyerId
             },
             mode: 'payment',
-            success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/?success=true`, //yeh success Url hai means if order placed successfully will redirect to this URL.
+            success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`, //yeh success Url hai means if order placed successfully will redirect to this URL.
             cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,//yeh cancel url hai, agr order_place na hua toh user cancel url pa re-direct hoja ga which is homepage. 
             //remember NEXT_PUBLIC_SERVER_URL yeh lazmi dena hai bcuz it is your application domain. 
         });
