@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Checkout from './checkout'
 
 const CheckoutBtn = ({ EventInfo }: { EventInfo: Event }) => {
-    const { session,isLoaded } = useSession() // as this component is client therefore using useUser hook.
+    const { session, isLoaded } = useSession() // as this component is client therefore using useUser hook.
     const userId = session?.user.publicMetadata.userId as string
     console.log(userId);
     const hasEventFinished = new Date(EventInfo.endDateTime) < new Date()
@@ -20,7 +20,7 @@ const CheckoutBtn = ({ EventInfo }: { EventInfo: Event }) => {
                             <Link href={"/sign-in"}>Get Tickets</Link></Button>
                     </SignedOut>
                     <SignedIn>
-                    {isLoaded && <Checkout event={EventInfo} userId={userId!}/>}
+                        {isLoaded && <Checkout event={EventInfo} userId={userId!} />}
                     </SignedIn>
                 </>}
         </div>
