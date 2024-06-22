@@ -43,6 +43,7 @@ The child component gets control over rendering a specific part of the UI.
 * if you are going to perform a task that can be time taking list loading more than 100 post on UI which are coming from DB or storing any data in DB through server action or any method and you dont want to block UI in these cases so use **startTransition** for server component and if you are in client component you can use **useTransition** hook.
 * always remember if you have define any class in global.css by using @apply directive layer utilities so let Suppose you define a color for box bg-red-500 in that class and when you are creating box or div etc, and you apply that class on it and at the same time you are applying the same property to that element like you have defined bg color in layer utilities class also and in defining it in element as well so tailwind will give more priority to that class which you have defined. 
 * if facing error while creating events in Db, so go in network tab by inspecting and click on the request that occurring and then check request payload so you will understand that why the event is not creating in Db. In my case the JSON obj i am passing to **Model.create** method so in that obj **userId** field is undefined and it is required by mongoDb document bcuz when i have created the schema i put it as required so therefore i have facing the error.
+* also remember this that if already the user exist in Db and again you are trying to sign-in and looking at clerk webhook so it show failed user.created, bcuz user already exist in Db.
 #### Connection with MongoDb
 * create database folder in lib.
 * create index.ts inside it.
@@ -90,6 +91,8 @@ In summary, Mongoose simplifies MongoDB data modeling, validation, and interacti
 * In simple words, Mongoose allows us to make some validation on our mongoDB as we know that in MongoDb we cannot create standard schema there is a dynamic collections of documents where fields can be created dynamically in documents, So mongoose serve as a driver that allow us to create schema,middlewares,relationships b/w different collections(similar to SQL).
 
 * by doing methods chaining we can build complex queries.
+* But remember one thing that even if we created a schema by using mongoose, but still mongoDb will accept other fields as well those are not in schema and to solve this problem you can check this:[check here](https://stackoverflow.com/questions/28063849/mongoose-select-only-fields-explicitly-declared-in-schema)
+* remember that when the model is created once so mongoose cached it therefore when we makes changes in schema so it does not appear in , to solve this remember whenever make changes in model restart your application so then mongoose we again create fresh model with new schema. 
 
 **Mongoose**, a Node.js-based Object Data Modeling (ODM) library, is primarily designed for **MongoDB**. However, there are some considerations regarding its compatibility with other NoSQL databases:
 
@@ -239,7 +242,7 @@ Remember, while MongoDB's flexible schema allows variations between documents, M
 
 #### Webhook with clerk :
 
-basically here we are syncing Clerk data to application backend, Which means that at the moment when anyone come and signup or sign-in etc on our app so User data will automatically Save in DB as well.
+basically here we are syncing Clerk data to application backend, Which means that at the moment when anyone come and signup or sign-in etc on our app so User data will automatically Save in DB as well.[click here](https://clerk.com/docs/integrations/webhooks/sync-data)
 
 * Step-01 : If you want to test it locally so then first we have to deploy using Ngrok server which will create a URL that looks like domain, but basically your app is running locally n your system, but best option is to dont do this step directly go on vercel and deploy your websute properly (this you can do after setuping webhook)
 * step-02: move to step-5 in the top above link steps, where we are going to install Svix package.
