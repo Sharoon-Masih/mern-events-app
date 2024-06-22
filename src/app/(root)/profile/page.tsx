@@ -11,6 +11,7 @@ const ProfilePage = async () => {
     // const Tickets=await getTickets()
     const Events_organized = await getEventsOrganizedByUserId({ userId: userId, page: 1 })
     console.log(userId);
+    console.log(Events_organized);
     return (
         <>
             <section className='flex flex-col '>
@@ -34,7 +35,7 @@ const ProfilePage = async () => {
                     </div>
                 </div>
                 <div className='py-10 wrapper'>
-                    <Collection
+                    {/* <Collection
                         collectionType="Events_Organized"
                         data={Events_organized?.data}
                         emptyTitle='No Events Organized'
@@ -42,7 +43,7 @@ const ProfilePage = async () => {
                         limit={6}
                         totalPage={Events_organized?.totalPages}
                         page={1} //yeh wali property basically yeh btye gi at initial current page konsa show hoga jasa like yaha "1" likh dia na toh its mean yaha initially 1 page show hoga.
-                    />
+                    /> */}
                 </div>
             </section>
         </>
