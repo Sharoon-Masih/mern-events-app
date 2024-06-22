@@ -32,7 +32,7 @@ export async function POST(request: Request) { //here we define a POST method bc
     if (eventType === 'checkout.session.completed') { //here we are implementing the condition that if event is of type "checkout.session.completed" so then execute the below code, in simple words that if the eventType is = checkout.session.completed then our order will be save in Db through the createOrder() server action.
         console.log("session completed");
         const { id, amount_total, metadata } = event.data.object //now here retrieving the data from ".object" like the stripeId, amount_total of product for which this checkout session is created and the metadata of product.
-
+         console.log(metadata);
         const order = { //then here we created a obj named as order and assign the above values to this obj properties
             stripeId: id,
             event: metadata?.eventId || '', //if ".eventId" property exist in metadata obj else empty string will be assigned. 
