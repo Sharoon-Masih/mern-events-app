@@ -92,6 +92,7 @@ export async function getAllEvents({ query, limit = 6, page, category }: GetAllE
       .skip(0)
       .limit(limit)
 
+    await CategoryModel.find({})
     const events = await eventsQuery
     .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
     .populate({ path: "category", model: "Category", select: "_id name" })
