@@ -20,7 +20,7 @@ const CheckoutBtn = ({ EventInfo }: { EventInfo: Event }) => {
                             <Link href={"/sign-in"}>Get Tickets</Link></Button>
                     </SignedOut>
                     <SignedIn>
-                    {isLoaded &&<Checkout event={EventInfo} userId={userId!}/>}
+                    {isLoaded && <Checkout event={EventInfo} userId={userId!}/>}
                     </SignedIn>
                 </>}
         </div>

@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 
 const CreateEvents = () => {
-    const {sessionClaims,}=auth() //it is helper to get currently actiev user Auth object, it only works on server-side rendered component.
+    const {sessionClaims}=auth() //it is helper to get currently actiev user Auth object, it only works on server-side rendered component.
 
     //we have to two helper given by clerk to access clerk data on nextJS app within server components one is "auth()" and other is "currentUser()", Now the Auth will return you the Auth object like userId,sessionId etc.
     
