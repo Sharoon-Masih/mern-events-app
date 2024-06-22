@@ -3,7 +3,7 @@ export type CreateUserParams = {
   clerkId: string
   firstName: string
   lastName: string
-  userName: string
+  // userName: string
   email: string
   photo: string
 }

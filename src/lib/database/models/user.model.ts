@@ -3,7 +3,7 @@ import { Schema, models, model } from "mongoose";
 const UserSchema = new Schema({ //creatting Schema by importing Schema class and creating new instance of Schema class. 
     clerkId: { type: String, required: true, unique: true }, //these are fields that are required in schema.
     email: { type: String, required: true, unique: true },
-    userName: { type: String, unique: true },
+    // userName: { type: String, unique: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     photo: { type: String, required: true },

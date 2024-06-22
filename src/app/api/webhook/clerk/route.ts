@@ -71,7 +71,7 @@ export async function POST(req: Request) {
         const User = { //here simply jo data uper humna get kia uski base pa ek new object bna kay usme jo be fields humna apna "userSchema" ma define ki thi wo yaha par initialize krka jo property uper get hui unko as a value assign krdia.
             clerkId: id,
             email: email_addresses[0].email_address,
-            userName: username as string, //basically putting ! or type casting by using "as", both meaning same that they are basically explicitly saying TS that agar "evt.data" ma inki type "string | null" be hna toh usko ignore kro ma apko yeh gurantee deta hun kay apka pss yaha "string" value hi ayegi.
+            // userName: username as string, //basically putting ! or type casting by using "as", both meaning same that they are basically explicitly saying TS that agar "evt.data" ma inki type "string | null" be hna toh usko ignore kro ma apko yeh gurantee deta hun kay apka pss yaha "string" value hi ayegi.
             firstName: first_name!,
             lastName: last_name!,
             photo: image_url
