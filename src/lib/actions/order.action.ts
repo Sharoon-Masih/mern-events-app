@@ -29,7 +29,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => { //yeh serve
                 },
             ],
             metadata: { //basically metaData is nothing it is a additional info that you provide to an product object, agr metadata ko koi empty value be dendenga toh wo error nhi dega like this " ", kiu kay wo required info nhi additional info hai.
-                eventId: order.eventId,
+                event: order.eventId,
                 buyerId: order.buyerId
             },
             mode: 'payment',
