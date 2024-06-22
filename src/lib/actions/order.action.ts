@@ -49,7 +49,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => { //yeh serve
 export async function createOrder(orderInfo: CreateOrderParams) {
     try {
         await connectToDb()
-        const newOrder = await OrderModel.create({...orderInfo,event:orderInfo.eventId,buyer:orderInfo.buyerId})
+        const newOrder = await OrderModel.create(orderInfo)
         if (!newOrder) {
             throw new Error("order does not exist")
         }
