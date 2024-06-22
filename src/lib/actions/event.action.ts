@@ -159,7 +159,8 @@ export async function getRelatedEventsByCategory({ categoryId, eventId, page, li
       .skip(skipAmount)
       .limit(limit)
     await CategoryModel.find({})
-    const relatedEvent: Ievents[] = await populateEvents(eventQuery)
+    const relatedEvent: Ievents[] = await eventQuery.populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
+    .populate({ path: "category", model: "Category", select: "_id name" })
     const relatedEventCount = await EventModel.countDocuments(condition)
     return {
       data: JSON.parse(JSON.stringify(relatedEvent)),
@@ -186,7 +187,8 @@ export async function getEventsOrganizedByUserId({ userId, page, limit = 6 }: Ge
       .limit(limit)
 
     await CategoryModel.find({})
-    const organizedEvents: Ievents[] = await populateEvents(eventQuery)
+    const organizedEvents: Ievents[] = await eventQuery .populate({ path: "organizer", model: "User", select: "_id firstName lastName" })
+    .populate({ path: "category", model: "Category", select: "_id name" })
     const organizedEventsCount: number = await EventModel.countDocuments(condition)
 
     return {
