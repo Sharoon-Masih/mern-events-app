@@ -37,7 +37,13 @@ const CategoryFilter = () => {
             })
         }
 
+    if(category !== "all"){
+
         router.push(newUrl, { scroll: false })
+        return
+    }
+
+    router.push('/',{scroll:false})
 
     }
     useEffect(() => {
