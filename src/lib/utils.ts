@@ -59,27 +59,30 @@ export const formatPrice = (price: string) => {
 }
 
 export function formUrlQuery({ params, key, value }: UrlQueryParams) {
-  const currentUrl = qs.parse(params)
+  const currentUrl = qs.parse(params) //yeh basically "qs" library hai jo query string ko JS object ma change kregi like: `?a=2&b=3` will become {a: 2, b: 3}
 
-  currentUrl[key] = value
+  currentUrl[key] = value //yeh phr currentUrl ek object agya or isme sa "key" ki base pa value assign krdi.or value iss lia assign kr rhay hain kiu kay search ma jab value change hogi toh wo automatically currentUrl mabi change honi chaiya
 
-  return qs.stringifyUrl(
+  return qs.stringifyUrl(  //basic jo yeh method hai .stringifyUrl() yeh jo be current url hoga usko and jo currentUrl object hna uper jo bnya hai convert krdega back into URL query string.
     {
-      url: window.location.pathname,
-      query: currentUrl,
+      url: window.location.pathname, //yaha basic hum yeh keh rhy hain current jo currentUrl hai wo lelo.
+      query: currentUrl, //yeh wo uper obj hai.
     },
-    { skipNull: true }
+    { skipNull: true } //yeh iss lia kia hai taka agr koi currentUrl objet ma undefined or null value ho toh unko ignore krdo
   )
 }
+//or jo uper yeh function bnaya hai yeh srf iss lia bnaya hai taka query ko update kr sakay A/c to user input.
 
-export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryParams) {
-  const currentUrl = qs.parse(params)
+export function removeKeysFromQuery({ params, keysToRemove }: RemoveUrlQueryParams) 
+{ //yeh function iss lia bnaya hai kay agr query na ho toh URL ma say query parameter be remove hojaye, like user na search bar ma input kia or phr search bar ko again clean krdia  toh uss time query parameter be remove hojaye.
 
-  keysToRemove.forEach(key => {
-    delete currentUrl[key]
+  const currentUrl = qs.parse(params) //same as above
+
+  keysToRemove.forEach(key => {  //yaha ab keys hain wo kiu kay array of string ki form ma aa rhi hai bcuz zarori nhi kay URL ma ek hi query ho more than one be hoskti hai toh iss lia array of string ki form ma receive kia.
+    delete currentUrl[key] //or yaha par jo jo key aa rhi hai unko currentUrl ma say delete krdia.
   })
 
-  return qs.stringifyUrl(
+  return qs.stringifyUrl(  //yaha par again jo Url hai isko update krdia on the basis of currentUrl.
     {
       url: window.location.pathname,
       query: currentUrl,

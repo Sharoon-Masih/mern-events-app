@@ -1,13 +1,24 @@
+import CategoryFilter from "@/components/shared/categoryFilter";
 import Collection from "@/components/shared/collection";
+import Search from "@/components/shared/search";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.action";
+import { SearchParamProps } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Home({ searchParams }: SearchParamProps) {
 
-  const events = await getAllEvents({ query: "1", category: "", limit: 6, page: 1 })
-  console.log(events);
+  const page = Number(searchParams?.page) || 1; //yaha par searchParam ka through we are getting  the page number but  if it is not there then we are setting it to 1, but page number search ma kis tarah hoga set, toh uska liya jo pagination.tsx hai usme humna onClickBtn ma "formNewQuery" ka jo func hai wo call kia hai toh uskay through Url create hoga jisma "page" query paramter hoga
+  const searchText = searchParams?.query as string || ""; //yeh pagination sa koi taluk nhi hai, yeh basically wo searchText hai jo user search bar ma search krega. yeh bhi searchParams ma hoga, but if it is not there then we are setting it to empty string.
+  const category = searchParams?.category as string || ""; //iska be pagination sa koi taluk nhi, yeh  basically wo category hai jo user category filter ma select krega. yeh bhi searchParams ma hoga, but if it is not there then we are setting it to empty string.
+  const events = await getAllEvents( //agay ki sari functionality iss action ma hai.
+    {
+      query: searchText,
+      category: category,
+      limit: 6,
+      page: page
+    })
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern py-5 md:py-10 bg-center bg-cover">
@@ -33,8 +44,8 @@ export default async function Home() {
         <div className="wrapper flex flex-col gap-8 md:gap-12  ">
           <h2 className="h2-bold">Trust by <br /> Thousands of Events </h2>
           <div className="wrapper flex w-full flex-col gap-5 md:flex-row ">
-            search
-            category
+            <Search placeholder="search event" />
+            <CategoryFilter/>
           </div>
           <Collection
             data={events?.data}
@@ -42,7 +53,7 @@ export default async function Home() {
             emptyStateSubText="Right now there is no event come back later"
             collectionType={"All_Events"}
             limit={6}
-            page={1}
+            page={page}
             totalPage={events?.totalPages} />
         </div>
 

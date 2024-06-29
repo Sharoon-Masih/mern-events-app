@@ -334,3 +334,12 @@ export async function POST(request: Request) { //here we define a POST method bc
 ```
 * step-07: now finally push your code on github because, webhook endpoint is your final domain so webhook will only occur when we properly deploy code on vercel.
  
+
+## Pagination
+
+* step-01: create a component file named as pagination.tsx. 
+* step-02: then, create a component named as Pagination. 
+* step-03: then, go to collection.tsx and on check line 43 we have implementing pagination.
+* step-04: then, go to app/page.tsx from where we are getting "page" number and "totalPage". 
+* step-05: then, go to getAllEvents() server action in event.action.tsx
+* step-06: then, finally you can gain look at pagination.tsx

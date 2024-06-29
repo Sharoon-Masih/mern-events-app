@@ -22,33 +22,33 @@ const Card = ({
             <Link href={`/events/${event._id}`} className='flex items-center justify-center flex-grow text-grey-500 bg-center bg-cover' style={{ backgroundImage: `url(${event.imageUrl})` }} />
             {/* only the creator have edit btn and delete btn, A/c to jo uper condition banayi thi uska A/c yaha render hoga. */}
             {isEventOrganizer && <div className='absolute right-2 top-2 p-3 bg-white rounded-xl shadow-sm flex flex-col items-center transition-all '>
-                    <Link href={`/events/${event._id}/update`} className='pb-2'><Image
-                        src={"/assets/icons/edit.svg"}
-                        alt='edit-icon'
-                        width={20}
-                        height={20} />
-                    </Link>
+                <Link href={`/events/${event._id}/update`} className='pb-2'><Image
+                    src={"/assets/icons/edit.svg"}
+                    alt='edit-icon'
+                    width={20}
+                    height={20} />
+                </Link>
 
-                    <DeleteConfirmation eventId={event._id} />
-                </div>}
+                <DeleteConfirmation eventId={event._id} />
+            </div>}
             <div className='flex flex-col min-h-[230px] justify-between p-5 '>
                 <Link href={`/events/${event._id}`}><div className='flex flex-col gap-3  md:gap-4'>
                     <div className='flex gap-2 '>
-                        <span className='text-green-500 bg-green-500/10 px-3 py-2 rounded-full'>
+                        {!hideTicketPrice && <span className='text-green-500 bg-green-500/10 px-3 py-2 rounded-full'>
                             {event.isFree ? 'FREE' : `$${event.price}`}
-                        </span>
-                        <span className='text-grey-500 bg-grey-500/10 px-3 py-2 rounded-full line-clamp-1'>
+                        </span>}
+                        {!hideTicketPrice && <span className='text-grey-500 bg-grey-500/10 px-3 py-2 rounded-full line-clamp-1'>
                             {event.category?.name}
-                        </span>
+                        </span>}
                     </div>
                     <div className='flex flex-col gap-3 '>
                         <p className='p-medium-16 text-grey-500'>{formatDateTime(event.startDateTime as Date).dateTime}</p>
                         <p className='p-medium-18 line-clamp-2 md:p-medium-20'>{event.title}</p>
                     </div>
                 </div></Link>
-                
+
                 <div className='flex gap-2
-                flex-col'>
+                flex-row justify-between'>
                     <p className='  text-grey-500 p-medium-16'>{event.organizer?.firstName} {event.organizer?.lastName}
                     </p>
                     {hasOrderlink && <Link href={`/orders?eventId=${event._id}`}

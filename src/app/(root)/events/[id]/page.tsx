@@ -15,7 +15,6 @@ const SingleEvent = async ({ params, searchParams }: { params: { id: string }, s
         eventId: getEvent._id,
         page: searchParams.page
     })
-    console.log(RelatedEvents?.data);
     return (
         <>
             <section className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
@@ -82,9 +81,9 @@ const SingleEvent = async ({ params, searchParams }: { params: { id: string }, s
                         data={RelatedEvents?.data}
                         emptyTitle="No Event found"
                         emptyStateSubText="Right now there is no related event come back later"
-                        limit={6}
-                        page={1}
-                        totalPage={2} />
+                        limit={3}
+                        page={searchParams.page}
+                        totalPage={RelatedEvents?.totalPages} />
                 </div>
 
             </section>

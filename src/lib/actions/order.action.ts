@@ -1,12 +1,14 @@
 "use server"
 
 import { redirect } from "next/navigation"
-import { CheckoutOrderParams, CreateOrderParams } from "../types"
+import { CheckoutOrderParams, CreateOrderParams, GetOrdersByEventParams, GetOrdersByUserParams } from "../types"
 import { handleError } from "../utils"
 import { Stripe } from 'stripe'
 import { connectToDb } from "../database"
 import OrderModel from "../database/models/order.model"
-
+import {ObjectId} from 'mongodb'
+import EventModel from "../database/models/event.model"
+import UserModel from "../database/models/user.model"
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => { //yeh server action hai jo stripe kay checkout pa re-direct krega user ko.
 
@@ -58,3 +60,90 @@ export async function createOrder(orderInfo: CreateOrderParams) {
         handleError(error)
     }
 }
+
+export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEventParams) {
+    try {
+      await connectToDb()
+  
+      if (!eventId) throw new Error('Event ID is required')
+      const eventObjectId = new ObjectId(eventId) //yaha par evenetId string format ma mil rhi hai toh usko ObjectId ma iss lia convert kia hai kiu nichay humay isko as a ObjectId use krna hai .
+  
+      const orders = await OrderModel.aggregate([
+        {
+          $lookup: { //yaha par simply lookup ka through jo user ka data hai wo order collection ma jo doc hai usme ajyega.
+            from: 'users',
+            localField: 'buyer',
+            foreignField: '_id',
+            as: 'buyer', //as a result wo lookup new buyer field ma store hojayega 
+          },
+        },
+        {
+          $unwind: '$buyer', //as we know jo lookup hai wo array return krta hai toh $unwind ka through usko simple object ma convert krenga
+        },
+        {
+          $lookup: { //uper jis tarah buyer ka data aya hai isi tarah yaha par event ka jo data hai wo ajayega.
+            from: 'events',
+            localField: 'event',
+            foreignField: '_id',
+            as: 'event',
+          },
+        },
+        {
+          $unwind: '$event', //yaha par be jo event field hai wo ek array contain krti hogi toh iss liya usko simple ek object ma change krenga.
+        },
+        {
+          $project: { //yaha par basic $project operator ka through yeh decide kr rhay hain kay final document ki shape kya hogi.Acha remember jab be hum yeh aggregate pipeline ya aggregation ka operation perform krtay hain toh yeh Database a kuch change nhi krtay bcuz yeh srf READ operation hotay hain mtlb inkay through hum query krta hain nay kay database ma kuch create wagera krtay hain, toh isi lia hum yaha par apni marzi say result may new field add kr rhay hain ya etc..
+            _id: 1, //yaha par interesting thing yeh haka yeh jo mena _id ko "1" assign kia hna yeh koi value nhi hai yeh basic iss cheez ko represent kr rha hai kay _id exist krti hai iss document may, baki jo iski original value hai wo MongoDb automatically assign krdega but make sure field name should be "_id" bcuz as its reserve field in mongodb doc so it knows. 
+            totalAmount: 1, 
+            createdAt: 1,
+            eventTitle: '$event.title', //yeh be ek new field add ki evenetTitle jiski value jo lookup ka through object bna hai event ka usme jo "title" property hai.
+            eventId: '$event._id', // same as above
+            buyer: {
+              $concat: ['$buyer.firstName', ' ', '$buyer.lastName'], //yaha hum jo buyer object hai usme say jo firstname and lastname hai usko concatenate krka single value bna rahay hain, but remember yeh jo hum buyer ki field ka agay pehlay {} object bnaya hai then usmay concat ko use kia hai . toh wo basically iss lia kia hai kiu kay $concat ka operator ko direct as a value use nhi krskta tha, but jo result hoga wo simple string value hogi "buyer" field may.
+            },
+          },
+        },
+        {
+          $match: { //iss stage pay humna uper jo document as a result milega uspa condition lgadi kay jo "$and" ka through condition lgyi hai which is saying that kay resulting document jo aya hai usme two cheezain match krni chaiya ek eventId jo kay "eventObjectId" say match krni chaiya jo uper humna get ki hai and 2nd condition jo "buyer" field ma name hai wo jo search string hai usse match krna chaiya mtlb kay wo jo user search kray usse match kray or RegExp ka through jo 'i' put kia hai wo case-insensitive ko represent krta hai like agr john = John hoga toh that is acceptable. 
+            $and: [{ eventId: eventObjectId }, { buyer: { $regex: RegExp(searchString, 'i') } }],
+          },
+        },
+      ])
+  
+      return JSON.parse(JSON.stringify(orders))
+    } catch (error) {
+      handleError(error)
+    }
+  }
+
+  // GET ORDERS BY USER
+export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUserParams) {
+    try {
+      await connectToDb()
+  
+      const skipAmount = (Number(page) - 1) * limit
+      const conditions = { buyer: userId }
+  
+      const orders = await OrderModel.distinct('event._id')  //basic yeh jo distinct ka method hai yeh Orders ma jo event._id wali field hna usme jo jo _id same hongi unko common lelaga or single hi return krega duplicate nhi. ab yaha yeh ho rha haka srf wohi orders collection may say document return hongay jinki eventid distinct hongi, or then phr wo jo documents return hongay unpa condition apply hogi jo next line pa hai.
+        .find(conditions) //yaha humna kaha hai kay srf wohi order ayenga jinma buyer id "currentuserid" say match kregi.
+        .sort({ createdAt: 'desc' })
+        .skip(skipAmount)
+        .limit(limit)
+        .populate({
+          path: 'event',
+          model:EventModel,
+          populate: {
+            path: 'organizer',
+            model: UserModel,
+            select: '_id firstName lastName',
+          },
+        })
+  
+      const ordersCount = await OrderModel.distinct('event._id').countDocuments(conditions)
+  
+      return { data: JSON.parse(JSON.stringify(orders)), totalPages: Math.ceil(ordersCount / limit) }
+    } catch (error) {
+      handleError(error)
+    }
+  }
+  
