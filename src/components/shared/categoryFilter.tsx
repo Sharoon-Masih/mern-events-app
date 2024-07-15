@@ -37,13 +37,13 @@ const CategoryFilter = () => {
             })
         }
 
-    if(category !== "all"){
+    if(category !== "all"){ //yeh iss lia kia hai taka agr category === all ka hogi toh phr yeh code nhi chlega kiu kay hum chahtay hain agr category "all" hojaye toh phr url dobara sa original form ma ajaye like agr iss tarah hai: www.evently.com/?category="Ai" toh jasa hi user "all" select kray Url will become like this: www.evently.com , toh jasa hi url iss tarah hoga wo all event ko database ma say fetch krlega kiu kay ab search param remove hogya Url may say.
 
         router.push(newUrl, { scroll: false })
         return
     }
 
-    router.push('/',{scroll:false})
+    router.push('/',{scroll:false}) //agr uper wala code execute nhhi hoga toh phr yeh line chlegi or user original URl pa ajaga
 
     }
     useEffect(() => {

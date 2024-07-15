@@ -42,8 +42,8 @@ return (
             <tr key={row._id}  className="p-regular-14 lg:p-regular-16 border-b box-border">
                 <td className='min-w-[250px] py-3 text-left text-primary-500'>{row._id}</td>
                 <td className='min-w-[200px]  flex-1 py-3 pr-4 text-left'>{row.eventTitle}</td>
-                <td className="min-w-[100px] py-4 text-left">{formatDateTime(row.createdAt).dateTime}</td>
                 <td className="min-w-[150px] py-4 text-left">{row.buyer}</td>
+                <td className="min-w-[100px] py-4 text-left">{formatDateTime(row.createdAt).dateTime}</td>
                 <td className="min-w-[100px] py-4 text-right">{row.totalAmount}</td>
             </tr> )}
 
