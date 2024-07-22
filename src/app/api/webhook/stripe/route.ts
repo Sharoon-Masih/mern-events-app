@@ -35,7 +35,7 @@ export async function POST(request: Request) { //here we define a POST method bc
          console.log(metadata);
         const order = { //then here we created a obj named as order and assign the above values to this obj properties
             stripeId: id,
-            event: metadata?.event || '', //if ".eventId" property exist in metadata obj else empty string will be assigned. 
+            event: metadata?.event || '', //if ".eventId" property exist in metadata obj else empty string will be assigned.   
             buyer: metadata?.buyerId || '',
             totalAmount: amount_total ? (amount_total / 100).toString() : '0', //here if amount_total exist so convert the amount in dollar as string value bcuz in Db we have defined the price field as string else assign '0'. (amount_total / 100) actually by default from stripe we get amount in cents so to convert it in dollar we nned to divide by 100.
             createdAt: new Date(), //here creating additional for storing the order placing date in DB.
@@ -45,5 +45,5 @@ export async function POST(request: Request) { //here we define a POST method bc
         return NextResponse.json({ message: 'OK', order: newOrder }) //in response we get this msg and the newOrder obj.    
     }
 
-    return new Response('', { status: 200 })
+    return new Response('', { status: 200 });
 }
